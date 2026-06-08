@@ -1,0 +1,11 @@
+<h1>Available Polls</h1>
+<ol>
+@for(p of polls;track p.id){
+    <li>{{p.question}}</li>
+    <ul>
+        @for(o of p.options;track $index){
+            <li> <button (click)="onVoteClick(p.id,o.option)">{{o.option}}</button> : {{o.votes}}</li>
+        }
+    </ul>
+}
+</ol>
