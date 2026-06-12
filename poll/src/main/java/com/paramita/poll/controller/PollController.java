@@ -2,6 +2,7 @@ package com.paramita.poll.controller;
 
 import com.paramita.poll.service.impl.PollService;
 import com.paramita.poll.to.PollTO;
+import com.paramita.poll.to.VoteByOptionResponseTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,7 @@ public class PollController {
     }
 
     @PostMapping("{pollId}/vote")
-    public ResponseEntity<String> provideVoteByOption(@PathVariable int pollId, @RequestParam(name="option",required = true)String option){
-        pollService.voteByOption(pollId,option);
-        return ResponseEntity.ok("Successfully added");
+    public ResponseEntity<VoteByOptionResponseTO> provideVoteByOption(@PathVariable int pollId, @RequestParam(name="option",required = true)String option){
+        return ResponseEntity.ok(pollService.voteByOption(pollId,option));
     }
 }

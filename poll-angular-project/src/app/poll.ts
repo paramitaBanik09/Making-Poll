@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PollModule } from './poll-module';
+import { PollModule, voteByOptRes } from './poll-module';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,8 +19,10 @@ export class PollService {
   }
 
   voteByOption(pollID:number,option:string){
-    let url=`${this.baseUrl}${pollID}/vote?option=${option}`
+    let url=`${this.baseUrl}${pollID}/vote?option=${encodeURIComponent(option)}`
+    console.log(url);
+    
    // this.baseUrl.concat(pollID.toString()).concat("/vote?option=").concat(option);
-    return this.http.post(url,null,{responseType:'text'});
+    return this.http.post<voteByOptRes>(url,null);
   }
 }

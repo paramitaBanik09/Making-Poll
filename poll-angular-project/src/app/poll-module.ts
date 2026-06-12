@@ -8,3 +8,9 @@ export interface Options{
   "option":string;
   "votes":number;
 }
+
+export interface voteByOptRes{
+  "pollId":number
+  "option":string
+  "vote":number
+}
