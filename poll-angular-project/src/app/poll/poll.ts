@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Poll {
   polls:PollModule[]=[];
-  failuerAlert:string="";
+  failuerAlert=new Set<string>();
   //noOFOption:number=0; 
   newPoll:PollModule={
     id:0,
@@ -75,8 +75,8 @@ export class Poll {
       votes:0
     })
   }
-  deleteButton(){
-    this.newPoll.options.splice(1,1)
+  deleteButton(index:number){
+    this.newPoll.options.splice(index,1)
   }
   discartPoll(){
     this.newPoll={
@@ -95,6 +95,7 @@ export class Poll {
     }
   }
   createPoll(){
+    this.failuerAlert.clear();
     this.pollService.createPoll(this.newPoll).subscribe({
       next:(addedPoll)=>{
         this.polls.push(addedPoll)
@@ -111,12 +112,24 @@ export class Poll {
         this.cdr.detectChanges();
       },
       error:(err)=>{
-        this.failuerAlert=err.error.message;
+        console.log(err.error.message);
+        
+        err.error.message.forEach((element:string) => {
+          this.failuerAlert.add(element)
+        });
+        console.log(this.failuerAlert);
+        
         this.cdr.detectChanges();
       }
     })
   }
-  removeAlert(){
-    this.failuerAlert="";
+  removeal(msg:string){
+    if(this.failuerAlert.has(msg)){
+      this.failuerAlert.delete(msg)
+      //this.failuerAlert=[...this.failuerAlert]
+      console.log(this.failuerAlert);
+      
+      this.cdr.detectChanges();
+    }
   }
 }

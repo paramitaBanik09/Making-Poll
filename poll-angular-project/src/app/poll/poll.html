@@ -12,20 +12,20 @@
   </head>
 
 <body>
-
+  @for(a of failuerAlert;track a;let i = $index){
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <strong>{{a}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="removeal(a)"></button>
+    </div>
+  }
 <div class="container">
 <h2>Create Poll</h2>
-<input placeholder="Poll question" name="newPoll" [(ngModel)]="newPoll.question" (input)="removeAlert()"/><br>
-@if(failuerAlert!=null && failuerAlert!=""){
-<div class="text-danger">
-    {{ failuerAlert }}
-  </div>
-}
+<input placeholder="Poll question" name="newPoll" [(ngModel)]="newPoll.question"/><br>
 <div class="container">
-@for(i of  newPoll.options;track $index){
+@for(i of  newPoll.options;track $index;let j = $index){
     <input placeholder="option" name="pollOption" [(ngModel)]="i.option"/>
     @if(newPoll.options.length>2){
-        <button (click)="deleteButton()" class="btn btn-outline-danger">Remove</button>
+        <button (click)="deleteButton(j)" class="btn btn-outline-danger">Remove</button>
     }
     <br>
 }

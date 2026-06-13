@@ -13,6 +13,9 @@ public class UniqueConstraintValidationClass implements ConstraintValidator<Uniq
 
     @Override
     public boolean isValid(List<OptionTO> optionList, ConstraintValidatorContext context) {
+        if(optionList == null || optionList.isEmpty()){
+            return true;
+        }
         optionList.stream().map(OptionTO::getOption).collect(Collectors.groupingBy(e->e,Collectors.counting())).entrySet().stream()
                 .forEach(e->{
                     if(e.getValue()>1){
