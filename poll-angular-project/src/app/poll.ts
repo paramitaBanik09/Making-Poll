@@ -19,6 +19,10 @@ export class PollService {
   }
 
   voteByOption(pollID:number,option:string){
+    //encodeURIComponent() is used to encode data. As URL not allow any special characters. 
+    // That's why if we are sending C++ from Angular it's becomes "C  ". 
+    // To avoid this we used this encoder. "C++" will be converted into "C%25%25".
+    //In springboot, again it will autoconverted into "C++"
     let url=`${this.baseUrl}${pollID}/vote?option=${encodeURIComponent(option)}`
     console.log(url);
     

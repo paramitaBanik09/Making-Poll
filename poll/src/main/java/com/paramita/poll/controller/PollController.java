@@ -3,6 +3,7 @@ package com.paramita.poll.controller;
 import com.paramita.poll.service.impl.PollService;
 import com.paramita.poll.to.PollTO;
 import com.paramita.poll.to.VoteByOptionResponseTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class PollController {
         return ResponseEntity.ok(pollService.getPolls());
     }
     @PostMapping("/")
-    public ResponseEntity<PollTO> createPoll(@RequestBody PollTO pollTO) {
+    public ResponseEntity<PollTO> createPoll(@Valid @RequestBody PollTO pollTO) {
         return ResponseEntity.ok(pollService.createPoll(pollTO));
     }
 
